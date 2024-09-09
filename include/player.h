@@ -7,7 +7,7 @@
 
 typedef struct Player {
     Vec3F pos;
-    Vec2F vel;
+    Vec3F vel;
     float pitch, yaw, fov;
 } Player;
 
