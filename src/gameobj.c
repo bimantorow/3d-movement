@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "player.h"
 
-GameObj *GameObj_CreateCube(Vec3F *verts) {
+GameObj *GameObj_Cube(Vec3F *verts) {
     int n_vert = 8;
     int n_edge = 12;
     GameObj *cube = malloc(sizeof(GameObj));
@@ -54,7 +54,6 @@ void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player
     // Calculate points to draw
     for (int i = 0; i < obj->n_vert; i++) {
         Vec3F transformed;
-        Vec2F projected;
 
         // Translation
         transformed.x = obj->verts[i].x - player->pos.x;
@@ -72,11 +71,16 @@ void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player
 
     // Draw onto screen
     SDL_SetRenderTarget(renderer, texture);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     for (int i = 0; i < obj->n_edge; i++) {
         Vec2F origin = obj->proj_verts[obj->edges[i].x];
         Vec2F dest = obj->proj_verts[obj->edges[i].y];
-        SDL_RenderDrawLineF(renderer, origin.x, origin.y, dest.x, dest.y);
+        Vec2F origin_screen = Utils_WorldCoordToScreen(origin);
+        Vec2F dest_screen = Utils_WorldCoordToScreen(dest);
+        SDL_RenderDrawLineF(renderer, origin_screen.x, origin_screen.y, dest_screen.x, dest_screen.y);
     }
 }
 

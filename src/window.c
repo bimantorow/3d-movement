@@ -14,7 +14,7 @@ void Window_Init(SDL_Window **window, SDL_Renderer **renderer) {
     }
 
     *window = SDL_CreateWindow(
-        "Convex Hull",
+        "3D Movement",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WINDOW_W,
@@ -35,4 +35,8 @@ void Window_Destroy(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+SDL_Texture *Window_CreateTexture(SDL_Renderer *renderer) {
+    return SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, TEXTURE_W, TEXTURE_H);
 }

@@ -2,6 +2,7 @@
 #define GAMEOBJ_H_
 
 #include "utils.h"
+#include "player.h"
 
 typedef struct GameObj {
     Vec3F *verts;
@@ -11,5 +12,11 @@ typedef struct GameObj {
     Vec2 *edges;
     int n_edge;
 } GameObj;
+
+GameObj *GameObj_Cube(Vec3F *verts);
+void GameObj_Free(GameObj *obj);
+void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player, GameObj *obj);
+void GameObj_RotateYaw(GameObj *obj, float theta);
+void GameObj_RotatePitch(GameObj *obj, float theta);
 
 #endif

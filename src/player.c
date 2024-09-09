@@ -1,12 +1,14 @@
 #include <string.h>
+#include <stdlib.h>
 #include "player.h"
 #include "utils.h"
 
 Player *Player_Create(void) {
-    Player *player = malloc(sizeof(player));
-    bzero(player, sizeof(player)); 
+    Player *player = malloc(sizeof(Player));
+    bzero(player, sizeof(Player)); 
+    return player;
 }
 
-Player *Player_Free(Player *player) {
+void Player_Free(Player *player) {
     free(player);
 }
