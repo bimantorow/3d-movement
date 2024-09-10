@@ -1,14 +1,17 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
+#include <math.h>
 #include "window.h"
 #include "player.h"
 #include "gameobj.h"
 
 int quit = 0;
+int last_frame_time = 0;
 
-void process_input() {
+void process_input(Player *player) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
+        Player_UpdateDirection(player, event);
         switch (event.type) {
             case SDL_QUIT:
                 quit = 1;
@@ -24,10 +27,22 @@ void process_input() {
     }
 }
 
+void update(GameObj *cube, Player *player) {
+    int wait_time = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time);
+    if (wait_time > 0) {
+        SDL_Delay(wait_time);
+    }
+
+    float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f;
+    last_frame_time = SDL_GetTicks();
+
+    Player_UpdatePos(player, delta_time);
+    // float theta = M_PI / 2 * delta_time;
+    // GameObj_RotateYaw(cube, theta);
+}
+
 void render(SDL_Renderer *renderer, SDL_Texture *texture) {
     SDL_SetRenderTarget(renderer, NULL);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     SDL_RenderPresent(renderer);
 }
@@ -53,9 +68,12 @@ int main(void) {
 
     SDL_Texture *texture = Window_CreateTexture(renderer);
 
+    last_frame_time = SDL_GetTicks();
+
     // Game loop
     while (!quit) {
-        process_input();
+        process_input(player);
+        update(cube, player);
         GameObj_Render(renderer, texture, player, cube);
         render(renderer, texture);
     }

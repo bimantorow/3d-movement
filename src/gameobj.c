@@ -62,7 +62,7 @@ void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player
 
         // Rotation
         Utils_RotateAlongY(&transformed, -player->yaw);
-        Utils_RotateAlongX(&transformed, -player->pitch);
+        Utils_RotateAlongX(&transformed, player->pitch);
 
         // Projection
         obj->proj_verts[i].x = (FOCAL / (FOCAL + transformed.z)) * transformed.x;
@@ -78,8 +78,8 @@ void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player
     for (int i = 0; i < obj->n_edge; i++) {
         Vec2F origin = obj->proj_verts[obj->edges[i].x];
         Vec2F dest = obj->proj_verts[obj->edges[i].y];
-        Vec2F origin_screen = Utils_WorldCoordToScreen(origin);
-        Vec2F dest_screen = Utils_WorldCoordToScreen(dest);
+        Vec2F origin_screen = Utils_WorldCoordToScreen(origin, player->fov);
+        Vec2F dest_screen = Utils_WorldCoordToScreen(dest, player->fov);
         SDL_RenderDrawLineF(renderer, origin_screen.x, origin_screen.y, dest_screen.x, dest_screen.y);
     }
 }
