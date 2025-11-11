@@ -1,4 +1,4 @@
-# 3d Movement
+# 3D Movement
 A project to help learn how to render objects and create a player in 3-dimensional space. Graphics done with SDL.
 
 ## Usage
