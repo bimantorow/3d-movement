@@ -6,3 +6,9 @@ A project to help learn how to render objects and create a player in 3-dimension
 make
 ./3d_movement
 ```
+
+## Controls
+- WASD: Player movement
+- IJKL: Camera movement
+- Spacebar: Fly up
+- Ctrl: Fly down
