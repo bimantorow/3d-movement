@@ -13,7 +13,7 @@ typedef struct GameObj {
     int n_edge;
 } GameObj;
 
-GameObj *GameObj_Cube(Vec3F *verts);
+GameObj *GameObj_Cube(Vec3F start, float length);
 void GameObj_Free(GameObj *obj);
 void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player, GameObj *obj);
 void GameObj_RotateYaw(GameObj *obj, float theta);

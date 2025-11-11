@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "player.h"
 
-GameObj *GameObj_Cube(Vec3F *verts) {
+GameObj *GameObj_Cube(Vec3F start, float length) {
     int n_vert = 8;
     int n_edge = 12;
     GameObj *cube = malloc(sizeof(GameObj));
@@ -15,9 +15,14 @@ GameObj *GameObj_Cube(Vec3F *verts) {
     cube->edges = calloc(n_edge, sizeof(Vec2));
     cube->n_edge = n_edge;
 
-    for (int i = 0; i < n_vert; i++) {
-        cube->verts[i] = verts[i];
-    }
+    cube->verts[0] = (Vec3F){ start.x, start.y, start.z };
+    cube->verts[1] = (Vec3F){ start.x + length, start.y, start.z };
+    cube->verts[2] = (Vec3F){ start.x + length, start.y, start.z + length };
+    cube->verts[3] = (Vec3F){ start.x, start.y, start.z + length };
+    cube->verts[4] = (Vec3F){ start.x, start.y + length, start.z };
+    cube->verts[5] = (Vec3F){ start.x + length, start.y + length, start.z };
+    cube->verts[6] = (Vec3F){ start.x + length, start.y + length, start.z + length };
+    cube->verts[7] = (Vec3F){ start.x, start.y + length, start.z + length };
 
     bzero(cube->camera_verts, n_vert * sizeof(Vec3F));
     bzero(cube->proj_verts, n_vert * sizeof(Vec2F));
@@ -78,9 +83,12 @@ void GameObj_Render(SDL_Renderer *renderer, SDL_Texture *texture, Player *player
     for (int i = 0; i < obj->n_edge; i++) {
         Vec2F origin = obj->proj_verts[obj->edges[i].x];
         Vec2F dest = obj->proj_verts[obj->edges[i].y];
-        Vec2F origin_screen = Utils_WorldCoordToScreen(origin, player->fov);
-        Vec2F dest_screen = Utils_WorldCoordToScreen(dest, player->fov);
-        SDL_RenderDrawLineF(renderer, origin_screen.x, origin_screen.y, dest_screen.x, dest_screen.y);
+        printf("(%f, %f)\n", origin.x, origin.y);
+        Utils_WorldCoordToScreen(&origin, player->fov);
+        Utils_WorldCoordToScreen(&dest, player->fov);
+        printf("(%f, %f)\n", origin.x, origin.y);
+        // exit(0);
+        SDL_RenderDrawLineF(renderer, origin.x, origin.y, dest.x, dest.y);
     }
 }
 

@@ -3,7 +3,7 @@
 
 #include "utils.h"
 
-#define FOCAL 5
+#define FOCAL 200
 
 typedef struct Player {
     Vec3F pos;
@@ -12,7 +12,7 @@ typedef struct Player {
     float pitch, yaw, fov;
 } Player;
 
-Player *Player_Create(void);
+Player *Player_Create(float fov);
 void Player_UpdateDirection(Player *player, SDL_Event event);
 void Player_UpdatePos(Player *player, float delta_time);
 void Player_Free(Player *player);

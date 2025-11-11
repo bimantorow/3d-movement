@@ -37,6 +37,6 @@ void Window_Destroy(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Quit();
 }
 
-SDL_Texture *Window_CreateTexture(SDL_Renderer *renderer) {
-    return SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, TEXTURE_W, TEXTURE_H);
+SDL_Texture *Window_CreateTexture(SDL_Renderer *renderer, int fov) {
+    return SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 2 * fov, 2 * fov);
 }

@@ -4,13 +4,13 @@
 #include "player.h"
 #include "utils.h"
 
-#define VEL 1
-#define VEL_CAM 0.5
+#define VEL 10
+#define VEL_CAM 1
 
-Player *Player_Create(void) {
+Player *Player_Create(float fov) {
     Player *player = malloc(sizeof(Player));
     bzero(player, sizeof(Player)); 
-    player->fov = 20;
+    player->fov = fov;
     return player;
 }
 

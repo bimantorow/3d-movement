@@ -12,9 +12,10 @@ void Utils_RotateAlongX(Vec3F *point, float theta) {
     point->z = sinf(theta) * point->y + cosf(theta) * point->z;
 }
 
-Vec2F Utils_WorldCoordToScreen(Vec2F point, float fov) {
-    Vec2F res;
-    res.x = WINDOW_W * (point.x + (fov / 2.0f)) / fov;
-    res.y = WINDOW_H * (point.y + (-fov / 2.0f)) / -fov;
-    return res;
+void Utils_WorldCoordToScreen(Vec2F *point, float fov) {
+    // point->x = WINDOW_W * (point->x + (fov / 2.0f)) / fov;
+    // point->y = WINDOW_H * (point->y + (-fov / 2.0f)) / -fov;
+    point->x += fov;
+    point->y += -fov;
+    point->y *= -1;
 }

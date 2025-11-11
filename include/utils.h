@@ -15,6 +15,6 @@ typedef struct Vec2 {
 
 void Utils_RotateAlongY(Vec3F *point, float theta);
 void Utils_RotateAlongX(Vec3F *point, float theta);
-Vec2F Utils_WorldCoordToScreen(Vec2F point, float fov);
+void Utils_WorldCoordToScreen(Vec2F *point, float fov);
 
 #endif

@@ -52,21 +52,12 @@ int main(void) {
     SDL_Renderer *renderer = NULL;
     Window_Init(&window, &renderer);
 
-    Player *player = Player_Create();
+    Player *player = Player_Create(500.0f);
 
-    Vec3F verts[] = {
-        { -1.0f, -1.0f, 1.0f },
-        { 1.0f, -1.0f, 1.0f },
-        { 1.0f, -1.0f, 3.0f },
-        { -1.0f, -1.0f, 3.0f },
-        { -1.0f, 1.0f, 1.0f },
-        { 1.0f, 1.0f, 1.0f },
-        { 1.0f, 1.0f, 3.0f },
-        { -1.0f, 1.0f, 3.0f },
-    };
-    GameObj *cube = GameObj_Cube(verts);
+    Vec3F start = { -100.0f, 0.0f, 10.0f };
+    GameObj *cube = GameObj_Cube(start, 200.0f);
 
-    SDL_Texture *texture = Window_CreateTexture(renderer);
+    SDL_Texture *texture = Window_CreateTexture(renderer, player->fov);
 
     last_frame_time = SDL_GetTicks();
 
