@@ -12,3 +12,6 @@ make
 - IJKL: Camera movement
 - Spacebar: Fly up
 - Ctrl: Fly down
+
+## Demo
+![output](https://github.com/user-attachments/assets/817b8cdb-adb9-4ad4-988d-b8c4106f867d)
